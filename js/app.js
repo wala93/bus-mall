@@ -8,21 +8,22 @@ let firstImageElement = document.getElementById('first');
 let secondImageElement = document.getElementById('second');
 let thirdImageElement = document.getElementById('third');
 // let container =document.getElementById('container');
-
+// let showResultButton= document.getElementById('button');
 
 let unorderdList = document.getElementById('result');
 let li;
 
 
+// console.log(timesOfShow.length);
 let arrOfObject =[];
 function BusMall (name,source){
   this.name = name;
   this.source = source;
   this.click = 0;
-  this.timesOfShow = 0;
+  this.timesOfShow =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,];
 
   arrOfObject.push (this);
-  console.log(this.source);
+  // console.log(this.source);
 
 }
 new BusMall ('bag' ,'../images/bag.jpg');
@@ -62,20 +63,26 @@ function generateRandomIndex(){
 function renderThreeRandomImages(){
 
   firstImageIndex= generateRandomIndex();
+
   secondImageIndex=generateRandomIndex();
+
   thirdImageIndex=generateRandomIndex();
+
   // console.log('arr', arrOfObject);
 
 
   while (((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex)){
-    firstImageIndex= generateRandomIndex();}
-
+    firstImageIndex= generateRandomIndex();
+    secondImageIndex=generateRandomIndex();
+  }
   firstImageElement.setAttribute('src', arrOfObject[firstImageIndex].source);
   secondImageElement.setAttribute('src', arrOfObject[secondImageIndex].source);
   thirdImageElement.setAttribute('src', arrOfObject[thirdImageIndex].source);
 
 }
-
+// timesOfShow[thirdImageIndex]++;
+// timesOfShow[secondImageIndex]++;
+// timesOfShow[firstImageIndex]++;
 renderThreeRandomImages();
 
 function clicking (event){
@@ -97,11 +104,17 @@ function clicking (event){
 
   }
 
-  // firstImageElement.removeEventListener('click', clicking);
-  // secondImageElement.removeEventListener('click', clicking);
-  // thirdImageElement.removeEventListener('click', clicking);
+
+
 
 }
+
+
+// firstImageElement.removeEventListener('click', clicking);
+// secondImageElement.removeEventListener('click', clicking);
+// thirdImageElement.removeEventListener('click', clicking);
+
+
 
 
 
@@ -112,18 +125,18 @@ thirdImageElement.addEventListener('click', clicking);
 function resultButton(event){
 
 
- 
+
   for(let i = 0 ; i < arrOfObject.length; i++){
     li = document.createElement('li');
     unorderdList.appendChild(li);
 
-    li.textContent = `${arrOfObject[i].name} it has ${arrOfObject[i].click} Votes and ${arrOfObject[i].timesOfShow}  shows`;
+    li.textContent = `${arrOfObject[i].name} it has ${arrOfObject[i].click} Votes and ${arrOfObject[i].timesOfShow[i]}  shows`;
   }
 
+
 }
+// li.addEventListener('click',resultButton);
 li.addEventListener('click',resultButton);
-
-
 
 
 
