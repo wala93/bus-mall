@@ -63,11 +63,11 @@ function generateRandomIndex(){
 function renderThreeRandomImages(){
 
   firstImageIndex= generateRandomIndex();
-  arrOfObject[firstImageIndex].timesOfShow++;
+
   secondImageIndex=generateRandomIndex();
-  arrOfObject[secondImageIndex].timesOfShow++;
+
   thirdImageIndex=generateRandomIndex();
-  arrOfObject[thirdImageIndex].timesOfShow++;
+
   // console.log('arr', arrOfObject);
 
 
@@ -80,9 +80,11 @@ function renderThreeRandomImages(){
     // // arrOfObject[thirdImageIndex].timesOfShow++;
   }
   firstImageElement.setAttribute('src', arrOfObject[firstImageIndex].source);
+  arrOfObject[firstImageIndex].timesOfShow++;
   secondImageElement.setAttribute('src', arrOfObject[secondImageIndex].source);
+  arrOfObject[secondImageIndex].timesOfShow++;
   thirdImageElement.setAttribute('src', arrOfObject[thirdImageIndex].source);
-
+  arrOfObject[thirdImageIndex].timesOfShow++;
 }
 // timesOfShow[thirdImageIndex]++;
 // timesOfShow[secondImageIndex]++;
@@ -114,17 +116,10 @@ function clicking (event){
 }
 
 
-// firstImageElement.removeEventListener('click', clicking);
-// secondImageElement.removeEventListener('click', clicking);
-// thirdImageElement.removeEventListener('click', clicking);
-
-
 
 
 container.addEventListener('click',clicking);
-// firstImageElement.addEventListener('click', clicking);
-// secondImageElement.addEventListener('click', clicking);
-// thirdImageElement.addEventListener('click', clicking);
+
 
 function resultButton(event){
 
@@ -141,6 +136,28 @@ function resultButton(event){
 }
 // li.addEventListener('click',resultButton);
 li.addEventListener('click',resultButton);
+
+
+// var ctx = document.getElementById('myChart').getContext('2d');
+// var chart = new Chart(ctx, {
+//   // The type of chart we want to create
+//   type: 'line',
+
+//   // The data for our dataset
+//   data: {
+//     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//     datasets: [{
+//       label: 'My First dataset',
+//       backgroundColor: 'rgb(255, 99, 132)',
+//       borderColor: 'rgb(255, 99, 132)',
+//       data: [0, 10, 5, 2, 20, 30, 45]
+//     }]
+//   },
+
+//   // Configuration options go here
+//   options: {}
+// });
+
 
 
 
