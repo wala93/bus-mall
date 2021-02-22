@@ -73,10 +73,9 @@ function renderThreeRandomImages(){
 
   while (((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex)){
     firstImageIndex= generateRandomIndex();
-    arrOfObject[firstImageIndex].timesOfShow++;
-    secondImageIndex=generateRandomIndex();
-    arrOfObject[secondImageIndex].timesOfShow++;
-    // thirdImageIndex=generateRandomIndex();
+       secondImageIndex=generateRandomIndex();
+    thirdImageIndex=generateRandomIndex();
+       // thirdImageIndex=generateRandomIndex();
     // // arrOfObject[thirdImageIndex].timesOfShow++;
   }
   firstImageElement.setAttribute('src', arrOfObject[firstImageIndex].source);
