@@ -8,20 +8,23 @@ let firstImageElement = document.getElementById('first');
 let secondImageElement = document.getElementById('second');
 let thirdImageElement = document.getElementById('third');
 let container =document.getElementById('container');
-// let showResultButton= document.getElementById('button');
+let button= document.getElementById('button');
 
 let unorderdList = document.getElementById('result');
 let li;
-
+let arr=[6,15,8] ;
 
 // console.log(timesOfShow.length);
 let arrOfObject =[];
+let arrNames=[];
+let arrOfClicks=[];
+let arrOfShows=[];
 function BusMall (name,source){
   this.name = name;
   this.source = source;
   this.click = 0;
   this.timesOfShow =0;
-
+  arrNames.push(this.name);
   arrOfObject.push (this);
   // console.log(this.source);
 
@@ -63,25 +66,38 @@ function generateRandomIndex(){
 function renderThreeRandomImages(){
 
   firstImageIndex= generateRandomIndex();
-  arrOfObject[firstImageIndex].timesOfShow++;
   secondImageIndex=generateRandomIndex();
-  arrOfObject[secondImageIndex].timesOfShow++;
   thirdImageIndex=generateRandomIndex();
-  arrOfObject[thirdImageIndex].timesOfShow++;
-  // console.log('arr', arrOfObject);
 
 
-  while (((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex)){
-    firstImageIndex= generateRandomIndex();
-    arrOfObject[firstImageIndex].timesOfShow++;
+  // while(((arr.includes(firstImageIndex)===true) || (arr.includes(secondImageIndex)===true)) || (arr.includes(thirdImageIndex)===true))
+
+  // {firstImageIndex= generateRandomIndex();
+  //   secondImageIndex=generateRandomIndex();
+  //   thirdImageIndex=generateRandomIndex();}
+
+
+  // // while(((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex))
+
+  //  if (((arr.includes(firstImageIndex)===true) || (arr.includes(secondImageIndex)===true)) || (arr.includes(thirdImageIndex)===true))
+  while(((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex))
+
+  {firstImageIndex= generateRandomIndex();
     secondImageIndex=generateRandomIndex();
-    arrOfObject[secondImageIndex].timesOfShow++;
-    // thirdImageIndex=generateRandomIndex();
-    // // arrOfObject[thirdImageIndex].timesOfShow++;
-  }
+    thirdImageIndex=generateRandomIndex();}
+
+
   firstImageElement.setAttribute('src', arrOfObject[firstImageIndex].source);
+  arrOfObject[firstImageIndex].timesOfShow++;
   secondImageElement.setAttribute('src', arrOfObject[secondImageIndex].source);
+  arrOfObject[secondImageIndex].timesOfShow++;
   thirdImageElement.setAttribute('src', arrOfObject[thirdImageIndex].source);
+  arrOfObject[thirdImageIndex].timesOfShow++;
+
+
+  console.log(firstImageIndex,secondImageIndex, thirdImageIndex );
+
+
 
 }
 // timesOfShow[thirdImageIndex]++;
@@ -93,6 +109,7 @@ function clicking (event){
   attempts++;
   if (attempts <= maxClick ){
 
+
     if(event.target.id === 'first'){
       arrOfObject[firstImageIndex].click++;
       // console.log(arrOfObject[firstImageIndex].click);
@@ -102,32 +119,34 @@ function clicking (event){
     }
     else if(event.target.id==='third') { arrOfObject[thirdImageIndex].click++;}
 
-    renderThreeRandomImages();
+    // while  ((arr.includes(firstImageIndex)===true) || (arr.includes(secondImageIndex)===true)) || (arr.includes(thirdImageIndex)===true)
+    // { firstImageIndex= generateRandomIndex();
+    //   secondImageIndex=generateRandomIndex();
+    //   thirdImageIndex=generateRandomIndex();}
 
-    // resultButton();
+    renderThreeRandomImages();
 
   }
 
+  else {
 
+    for(let j = 0 ; j <arrOfObject.length; j++){
+      arrOfClicks.push(arrOfObject[j].click);
+      arrOfShows.push(arrOfObject[j].timesOfShow);
 
+    }
+    // resultButton();
 
+  }
+  // console.log(arr.includes);
 }
 
 
-// firstImageElement.removeEventListener('click', clicking);
-// secondImageElement.removeEventListener('click', clicking);
-// thirdImageElement.removeEventListener('click', clicking);
-
-
-
-
 container.addEventListener('click',clicking);
-// firstImageElement.addEventListener('click', clicking);
-// secondImageElement.addEventListener('click', clicking);
-// thirdImageElement.addEventListener('click', clicking);
+
 
 function resultButton(event){
-
+  // console.log(arrOfObject);
 
 
   for(let i = 0 ; i < arrOfObject.length; i++){
@@ -136,13 +155,40 @@ function resultButton(event){
 
     li.textContent = `${arrOfObject[i].name} it has ${arrOfObject[i].click} Votes and ${arrOfObject[i].timesOfShow}  shows`;
   }
+  chartRender();
+
+}
+
+button.addEventListener('click',resultButton);
+
+
+function chartRender(){
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+      labels: arrNames,
+      datasets: [{
+        label: 'Images votes',
+        backgroundColor: '#e36bae',
+        borderColor: 'rgb(255, 99, 132)',
+        data: arrOfClicks,
+      },{
+        label: 'times of shows',
+        backgroundColor: '#f1d1d0',
+        borderColor:'rgb(155,100,30)',
+        data:arrOfShows,
+
+      }]
+    },
+
+    // Configuration options go here
+    options: {}
+  });
 
 
 }
-// li.addEventListener('click',resultButton);
-li.addEventListener('click',resultButton);
-
-
-
-
 
