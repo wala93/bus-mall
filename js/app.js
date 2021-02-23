@@ -4,7 +4,6 @@ let maxClick=25;
 let attempts=0;
 
 let firstImageElement = document.getElementById('first');
-// firstImageElement.setAttribute('src', '../images/bag.jpg');
 let secondImageElement = document.getElementById('second');
 let thirdImageElement = document.getElementById('third');
 let container =document.getElementById('container');
@@ -12,7 +11,7 @@ let button= document.getElementById('button');
 
 let unorderdList = document.getElementById('result');
 let li;
-let arr=[6,15,8] ;
+
 
 // console.log(timesOfShow.length);
 let arrOfObject =[];
@@ -56,6 +55,7 @@ new BusMall ('usb' ,'../images/usb.gif');
 let firstImageIndex;
 let secondImageIndex;
 let thirdImageIndex;
+let arr=[] ;
 
 function generateRandomIndex(){
 
@@ -69,24 +69,18 @@ function renderThreeRandomImages(){
   secondImageIndex=generateRandomIndex();
   thirdImageIndex=generateRandomIndex();
 
+  // arr=[firstImageIndex,secondImageIndex,thirdImageIndex] ;
 
-  // while(((arr.includes(firstImageIndex)===true) || (arr.includes(secondImageIndex)===true)) || (arr.includes(thirdImageIndex)===true))
+  while(((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex) ||(((arr.includes(firstImageIndex)===true)|| (arr.includes(secondImageIndex)===true) ) || (arr.includes(thirdImageIndex)===true)))
 
-  // {firstImageIndex= generateRandomIndex();
-  //   secondImageIndex=generateRandomIndex();
-  //   thirdImageIndex=generateRandomIndex();}
-
-
-  // // while(((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex))
-
-  //  if (((arr.includes(firstImageIndex)===true) || (arr.includes(secondImageIndex)===true)) || (arr.includes(thirdImageIndex)===true))
-  while(((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex))
-
-  {firstImageIndex= generateRandomIndex();
+  {
+    firstImageIndex= generateRandomIndex();
     secondImageIndex=generateRandomIndex();
-    thirdImageIndex=generateRandomIndex();}
+    thirdImageIndex=generateRandomIndex();
 
+  }
 
+  arr=[firstImageIndex,secondImageIndex,thirdImageIndex] ;
   firstImageElement.setAttribute('src', arrOfObject[firstImageIndex].source);
   arrOfObject[firstImageIndex].timesOfShow++;
   secondImageElement.setAttribute('src', arrOfObject[secondImageIndex].source);
@@ -95,14 +89,11 @@ function renderThreeRandomImages(){
   arrOfObject[thirdImageIndex].timesOfShow++;
 
 
-  console.log(firstImageIndex,secondImageIndex, thirdImageIndex );
-
+  // console.log(firstImageIndex,secondImageIndex, thirdImageIndex );
 
 
 }
-// timesOfShow[thirdImageIndex]++;
-// timesOfShow[secondImageIndex]++;
-// timesOfShow[firstImageIndex]++;
+
 renderThreeRandomImages();
 
 function clicking (event){
@@ -119,10 +110,7 @@ function clicking (event){
     }
     else if(event.target.id==='third') { arrOfObject[thirdImageIndex].click++;}
 
-    // while  ((arr.includes(firstImageIndex)===true) || (arr.includes(secondImageIndex)===true)) || (arr.includes(thirdImageIndex)===true)
-    // { firstImageIndex= generateRandomIndex();
-    //   secondImageIndex=generateRandomIndex();
-    //   thirdImageIndex=generateRandomIndex();}
+
 
     renderThreeRandomImages();
 
