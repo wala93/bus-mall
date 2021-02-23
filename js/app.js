@@ -2,7 +2,6 @@
 
 let maxClick=25;
 let attempts=0;
-
 let firstImageElement = document.getElementById('first');
 let secondImageElement = document.getElementById('second');
 let thirdImageElement = document.getElementById('third');
@@ -13,7 +12,6 @@ let unorderdList = document.getElementById('result');
 let li;
 
 
-// console.log(timesOfShow.length);
 let arrOfObject =[];
 let arrNames=[];
 let arrOfClicks=[];
@@ -25,7 +23,7 @@ function BusMall (name,source){
   this.timesOfShow =0;
   arrNames.push(this.name);
   arrOfObject.push (this);
-  // console.log(this.source);
+
 
 }
 new BusMall ('bag' ,'../images/bag.jpg');
@@ -69,7 +67,7 @@ function renderThreeRandomImages(){
   secondImageIndex=generateRandomIndex();
   thirdImageIndex=generateRandomIndex();
 
-  // arr=[firstImageIndex,secondImageIndex,thirdImageIndex] ;
+
 
   while(((firstImageIndex===secondImageIndex)||(firstImageIndex===thirdImageIndex))||(secondImageIndex===thirdImageIndex) ||(((arr.includes(firstImageIndex)===true)|| (arr.includes(secondImageIndex)===true) ) || (arr.includes(thirdImageIndex)===true)))
 
@@ -88,10 +86,6 @@ function renderThreeRandomImages(){
   thirdImageElement.setAttribute('src', arrOfObject[thirdImageIndex].source);
   arrOfObject[thirdImageIndex].timesOfShow++;
 
-
-  // console.log(firstImageIndex,secondImageIndex, thirdImageIndex );
-
-
 }
 
 renderThreeRandomImages();
@@ -103,39 +97,37 @@ function clicking (event){
 
     if(event.target.id === 'first'){
       arrOfObject[firstImageIndex].click++;
-      // console.log(arrOfObject[firstImageIndex].click);
-    } else if (event.target.id === 'second'){
+      // button.removeEventListener('click',resultButton);
+    }
+    else if (event.target.id === 'second'){
       arrOfObject[secondImageIndex].click++;
-      // console.log(arrOfObject[secondImageIndex].click);
+      // button.removeEventListener('click',resultButton);
     }
     else if(event.target.id==='third') { arrOfObject[thirdImageIndex].click++;}
 
-
-
     renderThreeRandomImages();
-
   }
 
   else {
 
-    for(let j = 0 ; j <arrOfObject.length; j++){
-      arrOfClicks.push(arrOfObject[j].click);
-      arrOfShows.push(arrOfObject[j].timesOfShow);
+    button.style.visibility='visible';
+  }
 
-    }
-    // resultButton();
+  for(let j = 0 ; j <arrOfObject.length; j++){
+    arrOfClicks.push(arrOfObject[j].click);
+    arrOfShows.push(arrOfObject[j].timesOfShow);
 
   }
-  // console.log(arr.includes);
 }
+
+
 
 
 container.addEventListener('click',clicking);
 
 
-function resultButton(event){
-  // console.log(arrOfObject);
 
+function resultButton(event){
 
   for(let i = 0 ; i < arrOfObject.length; i++){
     li = document.createElement('li');
@@ -144,13 +136,16 @@ function resultButton(event){
     li.textContent = `${arrOfObject[i].name} it has ${arrOfObject[i].click} Votes and ${arrOfObject[i].timesOfShow}  shows`;
   }
   chartRender();
-
+  setData();
 }
 
 button.addEventListener('click',resultButton);
 
 
 function chartRender(){
+
+  button.removeEventListener('click',resultButton);
+
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -180,3 +175,20 @@ function chartRender(){
 
 }
 
+function setData (){
+
+  let resultData = JSON.stringify(arrOfObject);
+  localStorage.setItem('allImages', resultData);
+}
+
+function getData (){
+
+  let returnData= localStorage.getItem('allImages');
+  let parsData= JSON.parse(returnData);
+  if(parsData){
+    arrOfObject=parsData;
+
+  }
+
+}
+getData();
